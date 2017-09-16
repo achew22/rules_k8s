@@ -72,13 +72,15 @@ py_library(
 
 git_repository(
     name = "io_bazel_rules_go",
-    commit = "ae70411645c171b2056d38a6a959e491949f9afe",
+    # https://github.com/kubernetes/kubernetes/blob/master/build/root/WORKSPACE#L5
+    commit = "82483596ec203eb9c1849937636f4cbed83733eb",
     remote = "https://github.com/bazelbuild/rules_go.git",
 )
 
 load(
     "@io_bazel_rules_go//go:def.bzl",
     "go_repositories",
+    "go_repository",
 )
 
 go_repositories()
@@ -136,3 +138,27 @@ load(
 )
 
 _go_image_repos()
+
+go_repository(
+    name = "com_github_kubernetes_kubernetes",
+    importpath = "github.com/kubernetes/kubernetes.git",
+    remote = "https://github.com/kubernetes/kubernetes.git",
+    tag = "v1.7.6",
+    vcs = "git",
+)
+
+# It would be better to use the repo's BUILD files since using go_repository is
+# really slow, , but that is blocked by
+# https://github.com/bazelbuild/bazel/issues/3744
+#git_repository(
+#    name = "com_github_kubernetes_kubernetes",
+#    remote = "https://github.com/kubernetes/kubernetes.git",
+#    tag = "v1.7.6",
+#)
+#
+#http_archive(
+#    name = "io_kubernetes_build",
+#    sha256 = "ca8fa1ee0928220d77fcaa6bcf40a26c57800c024e21b08c8dd9cc8fbf910236",
+#    strip_prefix = "repo-infra-0aafaab9e158d3628804242c6a9c4dd3eb8bce1f",
+#    urls = ["https://github.com/kubernetes/repo-infra/archive/0aafaab9e158d3628804242c6a9c4dd3eb8bce1f.tar.gz"],
+#)

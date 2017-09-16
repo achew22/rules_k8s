@@ -17,8 +17,9 @@
 LANGUAGE="$1"
 
 function get_lb_ip() {
-    kubectl --namespace=${USER} get service hello-grpc-staging \
-	-o jsonpath='{.status.loadBalancer.ingress[0].ip}'
+    bazel run //k8s/kubectl --  --namespace=${USER} \
+      get service hello-grpc-staging \
+      -o jsonpath='{.status.loadBalancer.ingress[0].ip}'
 }
 
 function create() {

@@ -15,5 +15,6 @@
 # limitations under the License.
 set -euo pipefail
 
-kubectl --cluster="%{cluster}" --namespace="%{namespace}" delete \
-    -f %{unresolved}
+external/com_github_kubernetes_kubernetes/cmd/kubectl/kubectl \ 
+  --cluster="%{cluster}" --namespace="%{namespace}" delete \
+  -f %{unresolved}

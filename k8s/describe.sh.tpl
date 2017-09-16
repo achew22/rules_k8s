@@ -15,7 +15,9 @@
 # limitations under the License.
 set -euo pipefail
 
-RESOURCE_NAME=$(kubectl create --dry-run -f "%{unresolved}" | cut -d'"' -f 2)
+RESOURCE_NAME=$(external/com_github_kubernetes_kubernetes/cmd/kubectl/kubectl \
+  create --dry-run -f "%{unresolved}" | cut -d'"' -f 2)
 
-kubectl --cluster="%{cluster}" --namespace="%{namespace}" \
-    describe %{kind} "${RESOURCE_NAME}"
+external/com_github_kubernetes_kubernetes/cmd/kubectl/kubectl \
+  --cluster="%{cluster}" --namespace="%{namespace}" \
+  describe %{kind} "${RESOURCE_NAME}"

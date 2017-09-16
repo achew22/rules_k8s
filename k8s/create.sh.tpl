@@ -18,4 +18,5 @@ set -euo pipefail
 # TODO(mattmoor): Should we create namespaces that do not exist?
 
 ./%{resolve_script} | \
-  kubectl --cluster="%{cluster}" --namespace="%{namespace}" create -f -
+  external/com_github_kubernetes_kubernetes/cmd/kubectl/kubectl --cluster="%{cluster}" \
+    --namespace="%{namespace}" create -f -

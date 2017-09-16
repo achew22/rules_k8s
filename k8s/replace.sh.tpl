@@ -16,4 +16,5 @@
 set -euo pipefail
 
 ./%{resolve_script} | \
-  kubectl --cluster="%{cluster}" --namespace="%{namespace}" replace -f -
+  external/com_github_kubernetes_kubernetes/cmd/kubectl/kubectl \
+  --cluster="%{cluster}" --namespace="%{namespace}" replace -f -
